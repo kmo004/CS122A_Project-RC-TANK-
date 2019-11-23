@@ -1,16 +1,11 @@
-from gpiozero import Button
-import pygame.mixer
-from pygame.mixer import Sound
+from gpiozero import TonalBuzzer
+from gpiozero.tones import Tone
 from signal import pause
+from time import sleep
+b = TonalBuzzer(25)
 
-pygame.mixer.init()
+b.play(Tone(220))
+sleep(.1)
+b.play(Tone(500))
+sleep(.1)
 
-button_sounds = {
-    Button(2): Sound("samples/drum_tom_mid_hard.wav"),
-    Button(3): Sound("samples/drum_cymbal_open.wav"),
-}
-
-for button, sound in button_sounds.items():
-    button.when_pressed = sound.play
-
-pause()
