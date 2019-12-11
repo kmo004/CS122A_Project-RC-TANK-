@@ -12,20 +12,22 @@ turretAngle = 0
 #servo.angle = turretAngle
 
 def dpad(pos):
+#controls are backwards because a lot of German tanks had frontal Engines but i found out the TigerII has backend engines later on after i already put the board in.
+
 	if pos.top:
-		print ("up")
-		robot.forward()
-	elif pos.left:
-		print ("left")
-		robot.left()
-	elif pos.right:
-		print ("right")
-		robot.right()
-	elif pos.bottom:
-		print ("down")
+		#print ("up")
 		robot.backward()
+	elif pos.left:
+		#print ("left")
+		robot.right()
+	elif pos.right:
+		#print ("right")
+		robot.left()
+	elif pos.bottom:
+		#print ("down")
+		robot.forward()
 	elif pos.middle:
-		print("fire")
+		#print("fire")
 		led.on()
 		fire.play(Tone(500))
 		sleep(.1)
@@ -44,8 +46,9 @@ def rotated(rotation):
 	global turretAngle
 	curr = count
 	count = count+ rotation.value
-	print("{} {} {}".format(count, rotation.clockwise, rotation.anti_clockwise))
-	
+	#print("{} {} {}".format(count, rotation.clockwise, rotation.anti_clockwise))
+	#print if the turret is turning and in what direction(inc = clockwise and dec = counter clockwise)
+
 	if curr < count:
 		if turretAngle > -90:
 			turretAngle = turretAngle - 10
@@ -59,7 +62,7 @@ robot = Robot(right=(4,14), left=(17,18))
 bd = BlueDot()
 led = LED(22)
 fire = TonalBuzzer(25)
-servo = AngularServo(21,min_angle= -90, max_angle = 90, max_pulse_width = .0024, min_pulse_width = .00015)
+servo = AngularServo(21,min_angle= -90, max_angle = 90, max_pulse_width = .0024, min_pulse_width = .00015,frame_width = .25)
 
 bd.border = True
 bd.when_rotated = rotated
